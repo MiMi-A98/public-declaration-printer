@@ -1,8 +1,8 @@
 plugins {
-    kotlin("jvm") version "2.1.10"
+    kotlin("jvm") version "2.1.20"
+    application
 }
 
-group = "Mimi_98"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -10,12 +10,20 @@ repositories {
 }
 
 dependencies {
+
+    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:2.1.20")
     testImplementation(kotlin("test"))
+
 }
 
 tasks.test {
     useJUnitPlatform()
 }
+
 kotlin {
     jvmToolchain(21)
+}
+
+application {
+    mainClass.set("MainKt")
 }
