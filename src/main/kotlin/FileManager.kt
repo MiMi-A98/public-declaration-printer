@@ -13,7 +13,6 @@ import java.io.File
 
 class FileManager {
 
-    fun createEnvironment(): KotlinCoreEnvironment {
     fun processKotlinFiles(sourceFile: File) {
         val environment = createEnvironment()
         val kotlinFiles = getKotlinFiles(sourceFile)
@@ -36,6 +35,7 @@ class FileManager {
         }
     }
 
+    private fun createEnvironment(): KotlinCoreEnvironment {
         setIdeaIoUseFallback()
 
         val configuration = CompilerConfiguration().apply {
@@ -49,15 +49,15 @@ class FileManager {
         )
     }
 
-    fun getKotlinFiles(dir: File): List<File> =
+    private fun getKotlinFiles(dir: File): List<File> =
         dir.walkTopDown().filter { it.isFile && it.extension == "kt" }.toList()
 
-    fun createPsiFile(file: File, environment: KotlinCoreEnvironment): KtFile {
+    private fun createPsiFile(file: File, environment: KotlinCoreEnvironment): KtFile {
         val fileContent = file.readText()
         return KtPsiFactory(environment.project).createFile(file.name, fileContent)
     }
 
-    fun printPublicDeclarations(declaration: KtDeclaration, indent: String = "") {
+    private fun printPublicDeclarations(declaration: KtDeclaration, indent: String = "") {
 
         when (declaration) {
             is KtClassOrObject -> {
