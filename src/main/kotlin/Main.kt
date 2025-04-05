@@ -1,82 +1,20 @@
-import org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback
-import org.jetbrains.kotlin.cli.common.messages.MessageCollector
-import org.jetbrains.kotlin.cli.jvm.compiler.EnvironmentConfigFiles
-import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreEnvironment
-import org.jetbrains.kotlin.com.intellij.openapi.util.Disposer
-import org.jetbrains.kotlin.config.CommonConfigurationKeys
-import org.jetbrains.kotlin.config.CompilerConfiguration
-import org.jetbrains.kotlin.psi.*
-import org.jetbrains.kotlin.psi.psiUtil.isPublic
+import Mimi_98.FileManager
 import java.io.File
 
 fun main(args: Array<String>) {
 
     if (args.isEmpty()) {
-        println("Empty parameter for main method!")
+        println("Error: Empty parameter for main method!")
         return
     }
-    val sourceDir = File(args[0])
-    if (!sourceDir.exists() || !sourceDir.isDirectory) {
-        println("Provided path is not a directory")
+
+    val sourceDirectory = File(args[0])
+    if (!sourceDirectory.exists() || !sourceDirectory.isDirectory) {
+        println("Error: Provided path '${sourceDirectory.path}' is not a directory or it does not exists")
         return
     }
-    val environment = createEnvironment()
-    val kotlinFiles = getKotlinFiles(sourceDir)
 
-    kotlinFiles.forEach { file ->
-        val psiFile = createPsiFile(file, environment)
-        val psiFileContent = psiFile.declarations
-        for (declaration in psiFileContent) {
-            printPublicDeclarations(declaration)
-        }
-    }
+    val fileManager = FileManager()
+    fileManager.processKotlinFiles(sourceDirectory)
 }
 
-fun createEnvironment(): KotlinCoreEnvironment {
-    setIdeaIoUseFallback()
-
-    val configuration = CompilerConfiguration().apply {
-        put(CommonConfigurationKeys.MESSAGE_COLLECTOR_KEY, MessageCollector.NONE)
-    }
-
-    return KotlinCoreEnvironment.createForProduction(
-        Disposer.newDisposable(),
-        configuration,
-        EnvironmentConfigFiles.JVM_CONFIG_FILES
-    )
-}
-
-fun getKotlinFiles(dir: File): List<File> =
-    dir.walkTopDown().filter { it.isFile && it.extension == "kt" }.toList()
-
-fun createPsiFile(file: File, environment: KotlinCoreEnvironment): KtFile {
-    val fileContent = file.readText()
-    return KtPsiFactory(environment.project).createFile(file.name, fileContent)
-}
-
-fun printPublicDeclarations(declaration: KtDeclaration, indent: String = "") {
-
-    when (declaration) {
-        is KtClassOrObject -> {
-            if (declaration.isPublic) {
-                println(indent + "class ${declaration.name} {")
-            }
-            declaration.declarations.forEach {
-                printPublicDeclarations(it, "$indent    ")
-            }
-            println("$indent}")
-        }
-
-        is KtNamedFunction -> {
-            if (declaration.isPublic) {
-                println(indent + "fun ${declaration.name}()")
-            }
-        }
-
-        is KtProperty -> {
-            if (declaration.isPublic) {
-                println(indent + "${declaration.valOrVarKeyword.text} ${declaration.name}")
-            }
-        }
-    }
-}
