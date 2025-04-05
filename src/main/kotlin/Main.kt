@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreEnvironment
 import org.jetbrains.kotlin.com.intellij.openapi.util.Disposer
 import org.jetbrains.kotlin.config.CommonConfigurationKeys
 import org.jetbrains.kotlin.config.CompilerConfiguration
-import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.*
 import org.jetbrains.kotlin.psi.psiUtil.isPublic
 import java.io.File
@@ -25,15 +24,13 @@ fun main(args: Array<String>) {
     val kotlinFiles = getKotlinFiles(sourceDir)
 
     kotlinFiles.forEach { file ->
-        val ktFile = parseFile(file, environment)
-        ktFile.declarations.filterIsInstance<KtNamedDeclaration>()
-            .filter(::isPublic)
-            .forEach(::printPublicDeclarations)
+        val psiFile = createPsiFile(file, environment)
+        val psiFileContent = psiFile.declarations
+        for (declaration in psiFileContent) {
+            printPublicDeclarations(declaration)
+        }
     }
 }
-
-fun getKotlinFiles(dir: File): List<File> =
-    dir.walkTopDown().filter { it.isFile && it.extension == "kt" }.toList()
 
 fun createEnvironment(): KotlinCoreEnvironment {
     setIdeaIoUseFallback()
@@ -49,16 +46,37 @@ fun createEnvironment(): KotlinCoreEnvironment {
     )
 }
 
-fun parseFile(file: File, enviroment: KotlinCoreEnvironment): KtFile {
+fun getKotlinFiles(dir: File): List<File> =
+    dir.walkTopDown().filter { it.isFile && it.extension == "kt" }.toList()
+
+fun createPsiFile(file: File, environment: KotlinCoreEnvironment): KtFile {
     val fileContent = file.readText()
-    return KtPsiFactory(enviroment.project).createFile(file.name, fileContent)
+    return KtPsiFactory(environment.project).createFile(file.name, fileContent)
 }
 
-fun isPublic(declaration: KtNamedDeclaration): Boolean {
-    val modifierList = (declaration as? KtModifierListOwner)?.modifierList
-    return modifierList == null || modifierList.hasModifier(KtTokens.PUBLIC_KEYWORD)
-}
+fun printPublicDeclarations(declaration: KtDeclaration, indent: String = "") {
 
-fun printPublicDeclarations(declaration: KtDeclaration) {
-    println(declaration.text.substringBefore("{").trim())
+    when (declaration) {
+        is KtClassOrObject -> {
+            if (declaration.isPublic) {
+                println(indent + "class ${declaration.name} {")
+            }
+            declaration.declarations.forEach {
+                printPublicDeclarations(it, "$indent    ")
+            }
+            println("$indent}")
+        }
+
+        is KtNamedFunction -> {
+            if (declaration.isPublic) {
+                println(indent + "fun ${declaration.name}()")
+            }
+        }
+
+        is KtProperty -> {
+            if (declaration.isPublic) {
+                println(indent + "${declaration.valOrVarKeyword.text} ${declaration.name}")
+            }
+        }
+    }
 }
