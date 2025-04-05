@@ -14,6 +14,28 @@ import java.io.File
 class FileManager {
 
     fun createEnvironment(): KotlinCoreEnvironment {
+    fun processKotlinFiles(sourceFile: File) {
+        val environment = createEnvironment()
+        val kotlinFiles = getKotlinFiles(sourceFile)
+
+        if (kotlinFiles.isEmpty()) {
+            println("Warning: No Kotlin files found in '${sourceFile.path}'.")
+            return
+        }
+
+        kotlinFiles.forEach { file ->
+            val psiFile = createPsiFile(file, environment)
+
+            if (psiFile.declarations.isEmpty()) {
+                println("Info: No declarations found in ${file.name}")
+            } else {
+                psiFile.declarations.forEach { declaration ->
+                    printPublicDeclarations(declaration)
+                }
+            }
+        }
+    }
+
         setIdeaIoUseFallback()
 
         val configuration = CompilerConfiguration().apply {
