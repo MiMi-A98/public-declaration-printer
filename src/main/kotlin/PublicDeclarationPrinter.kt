@@ -85,11 +85,19 @@ class PublicDeclarationPrinter {
     }
 
     private fun printPublicDeclarations(declaration: KtDeclaration, indent: String = "") {
-
         when (declaration) {
+            is KtEnumEntry -> {
+                return
+            }
+
             is KtClassOrObject -> {
                 if (declaration.isPublic) {
-                    println(indent + "class ${declaration.name} {")
+                    val type = declaration.getDeclarationKeyword()?.text
+
+                    if (declaration.hasModifier(KtTokens.ENUM_KEYWORD))
+                        println("${indent}enum class ${declaration.name} {")
+                    else
+                        println("${indent}${type} ${declaration.name} {")
                 }
                 declaration.declarations.forEach {
                     printPublicDeclarations(it, "$indent    ")
@@ -98,14 +106,20 @@ class PublicDeclarationPrinter {
             }
 
             is KtNamedFunction -> {
+                if (declaration.isPublic && !declaration.name.isNullOrEmpty()) {
+                    println("${indent}fun ${declaration.name}()")
+                }
+            }
+
+            is KtConstructor<*> -> {
                 if (declaration.isPublic) {
-                    println(indent + "fun ${declaration.name}()")
+                    println("${indent}constructor ${declaration.name}")
                 }
             }
 
             is KtProperty -> {
                 if (declaration.isPublic) {
-                    println(indent + "${declaration.valOrVarKeyword.text} ${declaration.name}")
+                    println("${indent}${declaration.valOrVarKeyword.text} ${declaration.name}")
                 }
             }
         }
