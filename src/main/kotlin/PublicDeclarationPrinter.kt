@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.config.CommonConfigurationKeys
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.*
+import org.jetbrains.kotlin.psi.psiUtil.getValueParameters
 import org.jetbrains.kotlin.psi.psiUtil.isPublic
 import java.io.File
 
@@ -95,9 +96,9 @@ class PublicDeclarationPrinter {
                     val type = declaration.getDeclarationKeyword()?.text
 
                     if (declaration.hasModifier(KtTokens.ENUM_KEYWORD))
-                        println("${indent}enum class ${declaration.name} {")
+                        println("${indent}enum class ${declaration.name}(${getParameters(declaration)}) {")
                     else
-                        println("${indent}${type} ${declaration.name} {")
+                        println("${indent}${type} ${declaration.name}(${getParameters(declaration)}) {")
                 }
                 declaration.declarations.forEach {
                     printPublicDeclarations(it, "$indent    ")
@@ -107,13 +108,13 @@ class PublicDeclarationPrinter {
 
             is KtNamedFunction -> {
                 if (declaration.isPublic && !declaration.name.isNullOrEmpty()) {
-                    println("${indent}fun ${declaration.name}()")
+                    println("${indent}fun ${declaration.name}(${getParameters(declaration)})")
                 }
             }
 
             is KtConstructor<*> -> {
                 if (declaration.isPublic) {
-                    println("${indent}constructor ${declaration.name}")
+                    println("${indent}constructor ${declaration.name}(${getParameters(declaration)})")
                 }
             }
 
@@ -123,5 +124,22 @@ class PublicDeclarationPrinter {
                 }
             }
         }
+    }
+
+    private fun getParameters(declaration: KtNamedDeclaration): String {
+        val parameterList = declaration.getValueParameters()
+        val stringBuilder = StringBuilder()
+
+        parameterList.forEachIndexed { index, parameter ->
+            if (parameter.name.isNullOrEmpty() || parameter.typeReference == null) return@forEachIndexed
+
+            if (index > 0 && stringBuilder.isNotEmpty()) stringBuilder.append(", ")
+
+            stringBuilder.append(parameter.name)
+            stringBuilder.append(": ")
+            stringBuilder.append(parameter.typeReference?.getShortTypeText())
+        }
+
+        return stringBuilder.toString()
     }
 }
