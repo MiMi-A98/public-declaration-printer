@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75066a48-ecb1-4eeb-b704-3ea102b85c18" name="Changes" comment="added new cases to printPublicDeclarations method">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/PublicDeclarationPrinter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/PublicDeclarationPrinter.kt" afterDir="false" />
-    </list>
+    <list default="true" id="75066a48-ecb1-4eeb-b704-3ea102b85c18" name="Changes" comment="added new getParameters method" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,7 +51,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Exposed" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -86,7 +83,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.Build print-public-declarations.executor": "Run",
-    "Kotlin.MainKt.executor": "Debug",
+    "Kotlin.MainKt.executor": "Run",
     "RunOnceActivity.git.unshallow": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "git-widget-placeholder": "main",
@@ -260,7 +257,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743960588898</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="added new getParameters method">
+      <option name="closed" value="true" />
+      <created>1743971351499</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1743971351499</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -302,25 +307,10 @@
     <MESSAGE value="added some details for setup" />
     <MESSAGE value="added comments" />
     <MESSAGE value="added new cases to printPublicDeclarations method" />
-    <option name="LAST_COMMIT_MESSAGE" value="added new cases to printPublicDeclarations method" />
+    <MESSAGE value="added new getParameters method" />
+    <option name="LAST_COMMIT_MESSAGE" value="added new getParameters method" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <condition expression="declaration.name == &quot;MyClass&quot;" language="kotlin" />
-          <url>file://$PROJECT_DIR$/src/main/kotlin/PublicDeclarationPrinter.kt</url>
-          <line>95</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <condition expression="declaration.name == &quot;singleConnectionH2TransactionManager&quot;" language="kotlin" />
-          <url>file://$PROJECT_DIR$/src/main/kotlin/PublicDeclarationPrinter.kt</url>
-          <line>109</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="JetRunConfigurationType">
         <watch expression="declaration.getValueParameters().get(0).typeReference.getShortTypeText()" language="kotlin" custom="import org.jetbrains.kotlin.resolve.calls.util.getType,import org.jetbrains.kotlin.psi.psiUtil.getValueParameters" />
