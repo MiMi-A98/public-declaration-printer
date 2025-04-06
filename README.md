@@ -12,11 +12,11 @@ This project is a Kotlin-based code analysis tool that scans the Kotlin source f
 
 1. **Clone this project**
     ```bash
-       git clone https://github.com/MiMi-A98/Print-public-declarations
+       git clone https://github.com/MiMi-A98/public-declaration-printer
     ```
 2. **Open a terminal and navigate to the project root**
     ```bash
-       cd path/to/Print-public-declarations
+       cd path/to/public-declaration-printer
     ```
 3. **Run the application from the terminal**
     ```bash

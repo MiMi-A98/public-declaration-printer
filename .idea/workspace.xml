@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75066a48-ecb1-4eeb-b704-3ea102b85c18" name="Changes" comment="added new getParameters method" />
+    <list default="true" id="75066a48-ecb1-4eeb-b704-3ea102b85c18" name="Changes" comment="added new getParameters method">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,12 +64,12 @@
     &quot;assignee&quot;: &quot;MiMi-A98&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/MiMi-A98/Print-public-declarations.git&quot;,
-    &quot;accountId&quot;: &quot;bd521a5f-b939-406d-a91f-f8456479cea4&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/MiMi-A98/public-declaration-printer.git",
+    "accountId": "bd521a5f-b939-406d-a91f-f8456479cea4"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.1.20/4575525acd3d637769199ac64452fc35015b1f2c/kotlin-compiler-embeddable-2.1.20-sources.jar!/org/jetbrains/kotlin/cli/common/environment/util.kt" root0="SKIP_INSPECTION" />
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.1.20/4575525acd3d637769199ac64452fc35015b1f2c/kotlin-compiler-embeddable-2.1.20-sources.jar!/org/jetbrains/kotlin/cli/jvm/compiler/KotlinCoreEnvironment.kt" root0="SKIP_INSPECTION" />
@@ -92,7 +96,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15039062",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
   <component name="RecentsManager">
