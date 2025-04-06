@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75066a48-ecb1-4eeb-b704-3ea102b85c18" name="Changes" comment="moved all methods from main class except main method">
+    <list default="true" id="75066a48-ecb1-4eeb-b704-3ea102b85c18" name="Changes" comment="refactored code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/FileManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/PublicDeclarationPrinter.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +70,11 @@
     &quot;accountId&quot;: &quot;bd521a5f-b939-406d-a91f-f8456479cea4&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.1.20/4575525acd3d637769199ac64452fc35015b1f2c/kotlin-compiler-embeddable-2.1.20-sources.jar!/org/jetbrains/kotlin/cli/common/environment/util.kt" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.1.20/4575525acd3d637769199ac64452fc35015b1f2c/kotlin-compiler-embeddable-2.1.20-sources.jar!/org/jetbrains/kotlin/cli/jvm/compiler/KotlinCoreEnvironment.kt" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.1.20/4575525acd3d637769199ac64452fc35015b1f2c/kotlin-compiler-embeddable-2.1.20-sources.jar!/org/jetbrains/kotlin/cli/jvm/compiler/KotlinCoreProjectEnvironment.kt" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -79,21 +84,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build print-public-declarations.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.MainKt.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/MiMi/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.1.20/4ef56b3316798316bfac7a0ae443391c9e900ea1/kotlin-compiler-embeddable-2.1.20.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15039062&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build print-public-declarations.executor": "Run",
+    "Kotlin.MainKt.executor": "Debug",
+    "RunOnceActivity.git.unshallow": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/MiMi/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.1.20/4ef56b3316798316bfac7a0ae443391c9e900ea1/kotlin-compiler-embeddable-2.1.20.jar",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15039062",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Java\print-public-declarations" />
@@ -192,7 +197,47 @@
       <option name="project" value="LOCAL" />
       <updated>1743876262399</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="added processKotlinFiles method">
+      <option name="closed" value="true" />
+      <created>1743879233440</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1743879233440</updated>
+    </task>
+    <task id="LOCAL-00009" summary="changed access modifiers for methods">
+      <option name="closed" value="true" />
+      <created>1743879269509</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1743879269509</updated>
+    </task>
+    <task id="LOCAL-00010" summary="reformated main method and deleted methods that were moved to FileManager class">
+      <option name="closed" value="true" />
+      <created>1743879370810</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1743879370810</updated>
+    </task>
+    <task id="LOCAL-00011" summary="added project setup guide">
+      <option name="closed" value="true" />
+      <created>1743882338256</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1743882338256</updated>
+    </task>
+    <task id="LOCAL-00012" summary="refactored code">
+      <option name="closed" value="true" />
+      <created>1743952029352</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1743952029352</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -226,7 +271,12 @@
     <MESSAGE value="added new logic to print method" />
     <MESSAGE value="added new logic to printPublicDeclarations method" />
     <MESSAGE value="moved all methods from main class except main method" />
-    <option name="LAST_COMMIT_MESSAGE" value="moved all methods from main class except main method" />
+    <MESSAGE value="added processKotlinFiles method" />
+    <MESSAGE value="changed access modifiers for methods" />
+    <MESSAGE value="reformated main method and deleted methods that were moved to FileManager class" />
+    <MESSAGE value="added project setup guide" />
+    <MESSAGE value="refactored code" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored code" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
