@@ -7,14 +7,16 @@ import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreEnvironment
 import org.jetbrains.kotlin.com.intellij.openapi.util.Disposer
 import org.jetbrains.kotlin.config.CommonConfigurationKeys
 import org.jetbrains.kotlin.config.CompilerConfiguration
+import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.*
 import org.jetbrains.kotlin.psi.psiUtil.isPublic
 import java.io.File
 
-class FileManager {
+class PublicDeclarationPrinter {
 
-    fun processKotlinFiles(sourceFile: File) {
-        val environment = createEnvironment()
+    fun print(sourceFile: File) {
+
+        val environment = createKotlinEnvironment()
         val kotlinFiles = getKotlinFiles(sourceFile)
 
         if (kotlinFiles.isEmpty()) {
@@ -23,7 +25,7 @@ class FileManager {
         }
 
         kotlinFiles.forEach { file ->
-            val psiFile = createPsiFile(file, environment)
+            val psiFile = convertPsiFile(file, environment)
 
             if (psiFile.declarations.isEmpty()) {
                 println("Info: No declarations found in ${file.name}")
@@ -32,16 +34,28 @@ class FileManager {
                     printPublicDeclarations(declaration)
                 }
             }
+            println() // Empty line to separate files
         }
     }
 
-    private fun createEnvironment(): KotlinCoreEnvironment {
+    /**
+     * Creates a Kotlin environment for compiling and analyzing Kotlin code.
+     *
+     * This environment is required to parse Kotlin files into PSI structures. It sets up
+     * a fallback I/O mechanism for compatibility outside the IntelliJ IDE and disables
+     * message collection to suppress compiler output.
+     * @return A configured KotlinCoreEnvironment
+     */
+    private fun createKotlinEnvironment(): KotlinCoreEnvironment {
+
+        // Ensures the Kotlin compiler can safely access files when running outside of IntelliJ
         setIdeaIoUseFallback()
 
         val configuration = CompilerConfiguration().apply {
             put(CommonConfigurationKeys.MESSAGE_COLLECTOR_KEY, MessageCollector.NONE)
         }
 
+        // Create a production environment configured for JVM projects
         return KotlinCoreEnvironment.createForProduction(
             Disposer.newDisposable(),
             configuration,
@@ -49,10 +63,23 @@ class FileManager {
         )
     }
 
+    /**
+     *  Collects all Kotlin source files from the given directory
+     *
+     * @param dir The root directory from where to get the files.
+     * @return A list of File objects representing Kotlin source files.
+     */
     private fun getKotlinFiles(dir: File): List<File> =
         dir.walkTopDown().filter { it.isFile && it.extension == "kt" }.toList()
 
-    private fun createPsiFile(file: File, environment: KotlinCoreEnvironment): KtFile {
+    /**
+     * Read file content and converts it into a PSI file for further processing
+     *
+     * @param file The Kotlin source file to be parsed.
+     * @param environment The Kotlin compiler environment, which provides the project context.
+     * @return A KtFile representing the parsed structure of the Kotlin source file.
+     */
+    private fun convertPsiFile(file: File, environment: KotlinCoreEnvironment): KtFile {
         val fileContent = file.readText()
         return KtPsiFactory(environment.project).createFile(file.name, fileContent)
     }
